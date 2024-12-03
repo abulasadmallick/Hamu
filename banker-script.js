@@ -1,7 +1,7 @@
 // Banker credentials
 const banker = {
     username: 'banker',
-    password: 'secure123',
+    password: '123',
 };
 
 // Sample accounts
