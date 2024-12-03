@@ -8,47 +8,88 @@
 </head>
 <body>
     <div class="container">
-        <h1>Banker Dashboard</h1>
-        
-        <!-- Create Account Section -->
-        <div id="create-account-section" class="section">
-            <h2>Create New Account</h2>
-            <form id="create-account-form">
-                <label for="new-account-number">Account Number:</label>
-                <input type="text" id="new-account-number" required>
-                
-                <label for="new-pin">PIN:</label>
-                <input type="password" id="new-pin" required>
-                
-                <label for="new-balance">Initial Balance:</label>
-                <input type="number" id="new-balance" required>
-                
-                <button type="submit">Create Account</button>
+        <!-- Login Section -->
+        <div id="login-section" class="section">
+            <h1>Banker Login</h1>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Login</button>
+                <p id="login-message" class="message"></p>
             </form>
-            <p id="create-message" class="message"></p>
         </div>
 
-        <!-- Search Account Section -->
-        <div id="search-account-section" class="section">
-            <h2>Search Account</h2>
-            <input type="text" id="search-account" placeholder="Enter Account Number">
-            <button id="search-btn">Search</button>
-            <p id="search-message" class="message"></p>
-        </div>
+        <!-- Banker Dashboard -->
+        <div id="banker-dashboard" class="section hidden">
+            <h1>Banker Dashboard</h1>
 
-        <!-- Accounts List Section -->
-        <div id="accounts-list-section" class="section">
-            <h2>All Accounts</h2>
-            <table id="accounts-table">
-                <thead>
-                    <tr>
-                        <th>Account Number</th>
-                        <th>Balance</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <!-- Create Account Section -->
+            <div id="create-account-section" class="section">
+                <h2>Create New Account</h2>
+                <form id="create-account-form">
+                    <label for="new-account-number">Account Number:</label>
+                    <input type="text" id="new-account-number" required>
+
+                    <label for="new-name">Full Name:</label>
+                    <input type="text" id="new-name" required>
+
+                    <label for="new-address">Address:</label>
+                    <input type="text" id="new-address" required>
+
+                    <label for="new-mobile">Mobile Number:</label>
+                    <input type="text" id="new-mobile" required>
+
+                    <label for="new-balance">Initial Balance:</label>
+                    <input type="number" id="new-balance" required>
+
+                    <button type="submit">Create Account</button>
+                </form>
+                <p id="create-message" class="message"></p>
+            </div>
+
+            <!-- Search Account Section -->
+            <div id="search-account-section" class="section">
+                <h2>Search Account</h2>
+                <input type="text" id="search-account" placeholder="Enter Account Number">
+                <button id="search-btn">Search</button>
+                <p id="search-message" class="message"></p>
+                <div id="search-result" class="hidden">
+                    <h3>Account Details</h3>
+                    <p><strong>Account Number:</strong> <span id="account-details-number"></span></p>
+                    <p><strong>Name:</strong> <span id="account-details-name"></span></p>
+                    <p><strong>Address:</strong> <span id="account-details-address"></span></p>
+                    <p><strong>Mobile:</strong> <span id="account-details-mobile"></span></p>
+                    <p><strong>Balance:</strong> ₹<span id="account-details-balance">0.00</span></p>
+
+                    <div>
+                        <label for="transaction-amount">Amount:</label>
+                        <input type="number" id="transaction-amount" placeholder="Enter amount">
+                        <button id="deposit-btn">Deposit</button>
+                        <button id="withdraw-btn">Withdraw</button>
+                    </div>
+
+                    <h3>Transaction History</h3>
+                    <ul id="transaction-history"></ul>
+                </div>
+            </div>
+
+            <!-- Accounts List Section -->
+            <div id="accounts-list-section" class="section">
+                <h2>All Accounts</h2>
+                <table id="accounts-table">
+                    <thead>
+                        <tr>
+                            <th>Account Number</th>
+                            <th>Name</th>
+                            <th>Balance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
