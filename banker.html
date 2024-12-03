@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banker Dashboard</title>
+    <link rel="stylesheet" href="banker-styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Banker Dashboard</h1>
+        
+        <!-- Create Account Section -->
+        <div id="create-account-section" class="section">
+            <h2>Create New Account</h2>
+            <form id="create-account-form">
+                <label for="new-account-number">Account Number:</label>
+                <input type="text" id="new-account-number" required>
+                
+                <label for="new-pin">PIN:</label>
+                <input type="password" id="new-pin" required>
+                
+                <label for="new-balance">Initial Balance:</label>
+                <input type="number" id="new-balance" required>
+                
+                <button type="submit">Create Account</button>
+            </form>
+            <p id="create-message" class="message"></p>
+        </div>
+
+        <!-- Search Account Section -->
+        <div id="search-account-section" class="section">
+            <h2>Search Account</h2>
+            <input type="text" id="search-account" placeholder="Enter Account Number">
+            <button id="search-btn">Search</button>
+            <p id="search-message" class="message"></p>
+        </div>
+
+        <!-- Accounts List Section -->
+        <div id="accounts-list-section" class="section">
+            <h2>All Accounts</h2>
+            <table id="accounts-table">
+                <thead>
+                    <tr>
+                        <th>Account Number</th>
+                        <th>Balance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="banker-script.js"></script>
+</body>
+</html>
