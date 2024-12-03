@@ -1,89 +1,77 @@
 // Sample accounts
-const accounts = [
+let accounts = [
     { accountNumber: '123456', pin: '1234', balance: 1000 },
     { accountNumber: '654321', pin: '4321', balance: 2000 },
 ];
 
-// Active session
-let activeAccount = null;
-
 // DOM Elements
-const loginSection = document.getElementById('login-section');
-const dashboardSection = document.getElementById('dashboard-section');
-const loginForm = document.getElementById('login-form');
-const accountNumberInput = document.getElementById('account-number');
-const pinInput = document.getElementById('pin');
-const loginMessage = document.getElementById('login-message');
-const welcomeMessage = document.getElementById('welcome-message');
-const balanceDisplay = document.getElementById('balance');
-const amountInput = document.getElementById('amount');
-const depositBtn = document.getElementById('deposit-btn');
-const withdrawBtn = document.getElementById('withdraw-btn');
-const logoutBtn = document.getElementById('logout-btn');
+const createAccountForm = document.getElementById('create-account-form');
+const newAccountNumber = document.getElementById('new-account-number');
+const newPin = document.getElementById('new-pin');
+const newBalance = document.getElementById('new-balance');
+const createMessage = document.getElementById('create-message');
+
+const searchInput = document.getElementById('search-account');
+const searchBtn = document.getElementById('search-btn');
+const searchMessage = document.getElementById('search-message');
+
+const accountsTableBody = document.querySelector('#accounts-table tbody');
 
 // Functions
-function showDashboard() {
-    loginSection.classList.add('hidden');
-    dashboardSection.classList.remove('hidden');
-    welcomeMessage.textContent = `Welcome, Account #${activeAccount.accountNumber}`;
-    balanceDisplay.textContent = activeAccount.balance;
+function updateAccountsTable() {
+    accountsTableBody.innerHTML = accounts.map((account, index) => `
+        <tr>
+            <td>${account.accountNumber}</td>
+            <td>$${account.balance.toFixed(2)}</td>
+            <td>
+                <button onclick="deleteAccount(${index})">Delete</button>
+            </td>
+        </tr>
+    `).join('');
 }
 
-function showLogin() {
-    loginSection.classList.remove('hidden');
-    dashboardSection.classList.add('hidden');
-    loginMessage.textContent = '';
-    accountNumberInput.value = '';
-    pinInput.value = '';
-    amountInput.value = '';
-    activeAccount = null;
-}
-
-function handleLogin(event) {
+function createAccount(event) {
     event.preventDefault();
-    const accountNumber = accountNumberInput.value.trim();
-    const pin = pinInput.value.trim();
-    
-    const account = accounts.find(
-        (acc) => acc.accountNumber === accountNumber && acc.pin === pin
-    );
-    
+    const accountNumber = newAccountNumber.value.trim();
+    const pin = newPin.value.trim();
+    const balance = parseFloat(newBalance.value);
+
+    if (accounts.find(acc => acc.accountNumber === accountNumber)) {
+        createMessage.textContent = 'Account number already exists.';
+        return;
+    }
+
+    accounts.push({ accountNumber, pin, balance });
+    createMessage.textContent = 'Account created successfully!';
+    updateAccountsTable();
+
+    // Clear input fields
+    newAccountNumber.value = '';
+    newPin.value = '';
+    newBalance.value = '';
+}
+
+function searchAccount() {
+    const accountNumber = searchInput.value.trim();
+    const account = accounts.find(acc => acc.accountNumber === accountNumber);
+
     if (account) {
-        activeAccount = account;
-        showDashboard();
+        searchMessage.textContent = `Account Found! Balance: $${account.balance.toFixed(2)}`;
     } else {
-        loginMessage.textContent = 'Invalid account number or PIN.';
+        searchMessage.textContent = 'Account not found.';
     }
 }
 
-function handleDeposit() {
-    const amount = parseFloat(amountInput.value);
-    if (amount > 0) {
-        activeAccount.balance += amount;
-        balanceDisplay.textContent = activeAccount.balance;
-        amountInput.value = '';
-    } else {
-        alert('Please enter a valid amount.');
+function deleteAccount(index) {
+    if (confirm('Are you sure you want to delete this account?')) {
+        accounts.splice(index, 1);
+        updateAccountsTable();
     }
-}
-
-function handleWithdraw() {
-    const amount = parseFloat(amountInput.value);
-    if (amount > 0 && amount <= activeAccount.balance) {
-        activeAccount.balance -= amount;
-        balanceDisplay.textContent = activeAccount.balance;
-        amountInput.value = '';
-    } else {
-        alert('Insufficient balance or invalid amount.');
-    }
-}
-
-function handleLogout() {
-    showLogin();
 }
 
 // Event Listeners
-loginForm.addEventListener('submit', handleLogin);
-depositBtn.addEventListener('click', handleDeposit);
-withdrawBtn.addEventListener('click', handleWithdraw);
-logoutBtn.addEventListener('click', handleLogout);
+createAccountForm.addEventListener('submit', createAccount);
+searchBtn.addEventListener('click', searchAccount);
+
+// Initialize
+updateAccountsTable();
