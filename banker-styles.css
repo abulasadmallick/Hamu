@@ -57,3 +57,18 @@ th, td {
     color: red;
     font-size: 0.9em;
 }
+/* Same as before, with the addition of a hidden class */
+
+.hidden {
+    display: none;
+}
+
+.message {
+    color: red;
+    font-size: 0.9em;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
